@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>神 - 신내림</title>
+  <style>
+    @font-face {
+      font-family: 'OKGUNG';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/OKGUNG.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'BookkMyungjo-Bd';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'BookkMyungjo-Light';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Lt.woff2') format('woff2');
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'BookkMyungjo-Bd', serif;
+      background-color: rgb(238, 211, 172);
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #922b19;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #d38a8a;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      padding: 40px 20px;
+      color: black;
+      position: relative;
+      font-family: 'BookkMyungjo-Bd', serif;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      width: 70%;
+      height: 1px;
+      background-color: #431c17;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .content {
+      margin-left: 200px;
+      flex: 1;
+      overflow-x: hidden;
+      background-color: rgb(238, 211, 172);
+      position: relative;
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 1;
+      padding: 30px 0;
+    }
+
+    .content-title {
+      font-size: clamp(40px, 12vw, 220px);
+      font-family: 'OKGUNG', sans-serif;
+      font-weight: bold;
+      color: #000;
+      margin: 5px 40px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .description {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 24px;
+      color: #000;
+      margin-left: 80px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .video-container video {
+      width: 100vw;
+      height: auto;
+      display: block;
+      margin-top: 100px;
+      padding: 0;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .long-description {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 24px;
+      line-height: 2;
+      color: #000;
+      margin: 80px 40px;
+      margin-top: 300px;
+      margin-bottom: 300px;
+      text-align: center;
+      white-space: pre-line;
+      position: relative;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .click-text {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 18px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 20px;
+      opacity: 0.7;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .click-text.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .image-overlay {
+      position: relative;
+      width: 100%;
+      margin-top: 40px;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: visible;
+      min-height: 1000px;
+    }
+
+    .full-bg {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      pointer-events: none;
+      display: block;
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    .full-bg.show {
+      opacity: 1;
+    }
+
+    .bell-image {
+      width: 600px;
+      height: auto;
+      cursor: pointer;
+      z-index: 2;
+      margin: 0 auto 30px auto;
+      transform-origin: center top;
+      animation: swing 2.5s linear infinite;
+      display: block;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+      position: relative;
+    }
+
+    .bell-image.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .bell-image:hover {
+      animation: swingFast 1s linear infinite;
+    }
+
+    @keyframes swing {
+      0% { transform: rotate(-5deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+      100% { transform: rotate(-5deg); }
+    }
+
+    @keyframes swingFast {
+      0% { transform: rotate(-30deg); }
+      25% { transform: rotate(30deg); }
+      50% { transform: rotate(-30deg); }
+      75% { transform: rotate(30deg); }
+      100% { transform: rotate(-30deg); }
+    }
+
+    @keyframes slideDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 180px;
+      }
+
+      .sidebar a {
+        font-size: 24px;
+        padding: 30px 15px;
+      }
+
+      .content {
+        margin-left: 180px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #d38a8a;
+        position: static;
+      }
+
+      .sidebar a {
+        flex: 1;
+        font-size: 16px;
+        padding: 10px;
+        white-space: nowrap;
+      }
+
+      .content {
+        margin-left: 0;
+      }
+    }
+
+    .animate {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .video-section {
+      position: fixed;
+      top: 100px;
+      left: 200px;
+      width: calc(100vw - 200px);
+      height: auto;
+      min-height: 400px;
+      z-index: -2;
+      background: url('sn1-1.mp4') center/cover no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .image-section {
+      position: fixed;
+      top: 0;
+      left: 200px;
+      width: calc(100vw - 200px);
+      height: 100vh;
+      z-index: -3;
+      background: url('sn1-2.png') center/cover no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 15%, black 30%);
+      -webkit-mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 15%, black 30%);
+    }
+
+    .image-section.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <div class="sidebar">
+      <a href="page-shin.html">신내림</a>
+      <a href="sinbyung.html">신병</a>
+      <a href="overseas_sinnaerim.html">해외의 신내림</a>
+      <a href="overseas_similar.html">해외 유사 현상</a>
+  </div>
+
+  <div class="content">
+      <div class="video-section"></div>
+      <div class="image-section" id="imageSection"></div>
+      <div class="overlay">
+        <div class="content-title">신내림이란?</div>
+        <div class="description">신이 무당에게 내리는 현상을 일컫는 말</div>
+        <div class="video-container">
+          <video autoplay loop muted playsinline>
+            <source src="sn1-1.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="long-description">
+          신내림 상태가 되면 신이 무당의 몸에 내려와서 의식(意識)을 지배하게 되는데,
+          탈혼(脫魂)처럼 무당의 혼이 몸을 이탈하는 것이 아니라 신이 내려서 자의식을 잃거나 의식이 변하게 된다.
+          완전히 자의식을 상실하는 정신이상 상태가 아니라 주변 상황에 맞추어
+          자신을 통제하는 반의식 상태로 간주된다.
+          신이 내리면 몸의 감각은 과도한 흥분상태에 들어가며, 전율하거나 발작을 일으키기도 한다.
+        </div>
+        <div class="click-text">이미지 클릭</div>
+        <div class="image-overlay">
+          <img src="bell2.png" alt="종 이미지" class="bell-image" onclick="toggleImage()">
+          <img src="sn1-2.png" alt="전체 이미지" class="full-bg" id="fullImage">
+        </div>
+        <div class="long-description">
+          신내림은 한국에서 매우 독특한 형태로 발전해왔다.
+          신내림은 한국 강신무(신이 몸에 실려 직접 신어를 말함)의 굿 의례에서 필수적인 현상으로,
+          무당은 신내림을 통해 초월적 세계와 현실세계를 연결해 준다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleImage() {
+      const fullImage = document.getElementById('fullImage');
+      const imageSection = document.getElementById('imageSection');
+      const bellImage = document.querySelector('.bell-image');
+      const clickText = document.querySelector('.click-text');
+      
+      fullImage.classList.toggle('show');
+      imageSection.classList.toggle('show');
+      bellImage.classList.toggle('hide');
+      clickText.classList.toggle('hide');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        } else {
+          entry.target.classList.remove('animate');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.content-title, .description, .long-description, .video-container video');
+      elements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+</html>

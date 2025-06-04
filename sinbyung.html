@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>神 - 신병</title>
+  <style>
+    @font-face {
+      font-family: 'OKGUNG';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/OKGUNG.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'BookkMyungjo-Bd';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'BookkMyungjo-Light';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Lt.woff2') format('woff2');
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'BookkMyungjo-Bd', serif;
+      background-color: rgb(238, 211, 172);
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #922b19;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #d38a8a;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      padding: 40px 20px;
+      color: black;
+      position: relative;
+      font-family: 'BookkMyungjo-Bd', serif;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      width: 70%;
+      height: 1px;
+      background-color: #431c17;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .content {
+      margin-left: 200px;
+      flex: 1;
+      overflow-x: hidden;
+      background-color: rgb(238, 211, 172);
+      position: relative;
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 1;
+      padding: 30px 0;
+    }
+
+    .content-title {
+      font-size: clamp(40px, 12vw, 220px);
+      font-family: 'OKGUNG', sans-serif;
+      font-weight: bold;
+      color: #000;
+      margin: 5px 40px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .description {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 24px;
+      color: #000;
+      margin-left: 80px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .long-description {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 24px;
+      line-height: 2;
+      color: #000;
+      margin: 80px 40px;
+      margin-top: 300px;
+      margin-bottom: 300px;
+      text-align: center;
+      white-space: pre-line;
+      position: relative;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .content-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 100px 0 0 0;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .content-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 100px 0;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+
+    .animate {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 180px;
+      }
+
+      .sidebar a {
+        font-size: 24px;
+        padding: 30px 15px;
+      }
+
+      .content {
+        margin-left: 180px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #d38a8a;
+        position: static;
+      }
+
+      .sidebar a {
+        flex: 1;
+        font-size: 16px;
+        padding: 10px;
+        white-space: nowrap;
+      }
+
+      .content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <a href="page-shin.html">신내림</a>
+      <a href="sinbyung.html">신병</a>
+      <a href="overseas_sinnaerim.html">해외의 신내림</a>
+      <a href="overseas_similar.html">해외 유사 현상</a>
+    </div>
+
+    <div class="content">
+      <div class="overlay">
+        <div class="content-title">신병이란?</div>
+        <div class="description">신내림을 받기 전 나타나는 증상들</div>
+    
+        <img src="sn3-1.png" alt="신병 이미지" class="content-image">
+        
+        <div class="long-description">
+          종교에서 말하는 다양한 병, 주로 영적 자질이 있는 사람이 걸리는 종교적인 질병이다.
+          특히 한국어로는 주로 무속에서 말하는 신(神)이 들려서(강령 혹은 빙의) 생긴다고 여겨지는 병(病)을 의미한다.
+          한국의 민간종교에서 말하는 신병은 국제병의학에서도 신병 혹은 무병이라는 고유명칭으로 등록되어 있다.<br><br>        </div>
+        
+        <div class="description" style="margin-top: 200px; text-align: center;">↓ 20년간 무당의 길을 거부했지만 신병으로 인해 신내림을 받는 모습</div>
+        
+        <video class="content-video" autoplay muted loop>
+          <source src="sn3-2.mp4" type="video/mp4">
+        </video>
+
+        <div class="long-description">
+          무속에서 보는 신병은 두 가지가 있다.
+          첫 번째, 일반적으로 알려진 것으로, 무당이 되어야 할 사람이 신을 받지 않아 받는 벌전(무속에서 말하는 신의 형벌)이라는 것이다.
+          실제로 무속에서도 인다리 라고 하여 모셔야 할 신령님을 모시지 않으면
+          부모자식이나 형제, 사랑하고 아끼는 사람들이 해를 입는다는 개념도 있다.<br><br><br>
+        </div>
+
+        <video class="content-video" autoplay muted loop>
+          <source src="sn3-3.mp4" type="video/mp4">
+        </video>
+
+        <div class="long-description">
+          두 번째로 무속인들의 관점은 다르다.
+          이러한 신병을 겪는 사람들은 영적으로 소통하기 쉬운 사람들로,
+          신 뿐만 아니라 귀신이나 영혼, 기운 등에 민감한데 이런 것들의 영향력을 스스로 통제하기 힘들어 장애를 겪는 것이라고 본다.
+          이렇게 들러붙은 귀신들을 무속에서는 허주잡신(虛主雜神)이라고 부른다.
+          한 사람을 지키는 신격을 이르는 주장신에 대비하여 가짜 주인이라는 뜻의 허주, 잡스러운 신을 뜻하는 잡신이 합쳐진 말.
+          
+          비유하자면 집의 문이 활짝 열려있어 불량배들이 마구잡이로 쳐들어오는데,
+          집주인이 스스로 문을 닫거나 쫓아낼 능력이 없어 생기는 소란이라는 것이다.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        } else {
+          entry.target.classList.remove('animate');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.content-title, .description, .content-image, .long-description, .content-video');
+      elements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+</html>
