@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>神 - 해외 유사 현상</title>
+  <style>
+    @font-face {
+      font-family: 'OKGUNG';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/OKGUNG.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'BookkMyungjo-Bd';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'BookkMyungjo-Light';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Lt.woff2') format('woff2');
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'BookkMyungjo-Bd', serif;
+      background-color: rgb(238, 211, 172);
+    }
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #922b19;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #d38a8a;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 1000;
+    }
+    .sidebar a {
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      padding: 40px 20px;
+      color: black;
+      position: relative;
+      font-family: 'BookkMyungjo-Bd', serif;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    .sidebar a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      width: 70%;
+      height: 1px;
+      background-color: #431c17;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    .content {
+      margin-left: 200px;
+      flex: 1;
+      overflow-x: hidden;
+      background-color: rgb(238, 211, 172);
+      position: relative;
+    }
+    .overlay {
+      position: relative;
+      z-index: 1;
+      padding: 30px 0;
+    }
+    .content-title {
+      font-size: clamp(35px, 12vw, 220px);
+      font-family: 'OKGUNG', sans-serif;
+      font-weight: bold;
+      color: #000;
+      margin: 5px 40px 20px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+    .description {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 24px;
+      color: #000;
+      margin-left: 80px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 1.2s ease-out;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin: 80px 40px;
+      padding: 20px;
+    }
+    .image-left, .image-right {
+      flex: 1;
+      max-width: 45%;
+      text-align: center;
+      position: relative;
+    }
+    .image-left img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      position: relative;
+    }
+    .image-right img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.6s ease;
+      z-index: 2;
+      position: relative;
+      margin-left: -200px;
+    }
+    .image-right img:hover {
+      transform: scale(1.05) rotateY(360deg);
+      content: url('sn2-2.png');
+    }
+    .hover-text {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 16px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+    .long-description {
+      font-family: 'BookkMyungjo-Light', serif;
+      font-size: 24px;
+      line-height: 2;
+      color: #000;
+      margin: 80px 40px;
+      margin-top: 300px;
+      margin-bottom: 300px;
+      text-align: center;
+      white-space: pre-line;
+      position: relative;
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 1.2s ease-out;
+    }
+    .image-container-second {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin: 80px 40px;
+      padding: 20px;
+    }
+    .image-container-second .image-left, .image-container-second .image-right {
+      flex: 1;
+      max-width: 45%;
+      text-align: center;
+      position: relative;
+    }
+    .image-container-second .image-left img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.6s ease;
+      z-index: 2;
+      position: relative;
+      margin-right: -60px;
+      box-shadow: none;
+      border-radius: 0;
+    }
+    .image-container-second .image-left img:hover {
+      transform: scale(1.05) rotateY(360deg);
+      content: url('sn2-4.png');
+    }
+    .image-container-second .image-right img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      position: relative;
+      margin-top: 200px;
+    }
+    .image-container-second .image-right img:hover {
+      transform: none;
+      content: none;
+    }
+    .image-container-third {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin: 80px 40px;
+      padding: 20px;
+    }
+    .image-container-third .image-left, .image-container-third .image-right {
+      flex: 1;
+      max-width: 45%;
+      text-align: center;
+      position: relative;
+    }
+    .image-container-third .image-left img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      position: relative;
+    }
+    .image-container-third .image-right img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.6s ease;
+      z-index: 2;
+      position: relative;
+      margin-left: -200px;
+    }
+    .image-container-third .image-right img:hover {
+      transform: scale(1.05) rotateY(360deg);
+      content: url('sn2-6.png');
+    }
+    .image-container-fourth {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin: 80px 40px;
+      padding: 20px;
+    }
+    .image-container-fourth .image-left, .image-container-fourth .image-right {
+      flex: 1;
+      max-width: 45%;
+      text-align: center;
+      position: relative;
+    }
+    .image-container-fourth .image-left img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.6s ease;
+      z-index: 2;
+      position: relative;
+      margin-right: -60px;
+      box-shadow: none;
+      border-radius: 0;
+    }
+    .image-container-fourth .image-left img:hover {
+      transform: scale(1.05) rotateY(360deg);
+      content: url('sn2-8.png');
+    }
+    .image-container-fourth .image-right img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      position: relative;
+      margin-top: 200px;
+    }
+    .image-container-fourth .image-right img:hover {
+      transform: none;
+      content: none;
+    }
+    @media (max-width: 768px) {
+      .sidebar { width: 180px; }
+      .sidebar a {
+        font-size: 24px;
+        padding: 30px 15px;
+      }
+      .content { margin-left: 180px; }
+      .image-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .image-left, .image-right {
+        max-width: 80%;
+      }
+    }
+    @media (max-width: 480px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #d38a8a;
+        position: static;
+      }
+      .sidebar a {
+        flex: 1;
+        font-size: 16px;
+        padding: 10px;
+        white-space: nowrap;
+      }
+      .content {
+        margin-left: 0;
+      }
+    }
+    .animate {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <a href="page-shin.html">신내림</a>
+      <a href="sinbyung.html">신병</a>
+      <a href="overseas_sinnaerim.html">해외의 신내림</a>
+      <a href="overseas_similar.html">해외 유사 현상</a>
+    </div>
+    <div class="content">
+      <div class="overlay">
+        <div class="content-title">해외 유사 현상<br></div>
+        <div class="description">
+          세계 여러 문화에도 한국의 '신내림'과 유사한 현상이 존재하며,<br><br>
+          이는 각 문화권의 종교적, 사회적 배경에 따라 다르게 나타납니다.<br><br><br>
+        </div>
+        <div class="image-container">
+          <div class="image-left">
+            <img src="2-1.png" alt="해외 유사 현상 이미지 1">
+          </div>
+          <div class="image-right">
+            <div class="hover-text">이미지 위 마우스 커서<br><br></div>
+            <img src="sn2-1.png" alt="해외 유사 현상 이미지 2">
+          </div>
+        </div>
+
+        <div class="image-container-second">
+          <div class="image-left">
+            <div class="hover-text">이미지 위 마우스 커서<br><br></div>
+            <img src="sn2-3.png" alt="해외 유사 현상 이미지 3">
+          </div>
+          <div class="image-right">
+            <img src="2-2.png" alt="해외 유사 현상 이미지 4"><br><br><br><br>
+          </div>
+        </div>
+
+        <div class="image-container-third">
+          <div class="image-left">
+            <img src="2-3.png" alt="해외 유사 현상 이미지 5">
+          </div>
+          <div class="image-right">
+            <div class="hover-text">이미지 위 마우스 커서<br><br></div>
+            <img src="sn2-5.png" alt="해외 유사 현상 이미지 6">
+          </div>
+        </div>
+
+        <div class="image-container-fourth">
+          <div class="image-left">
+            <div class="hover-text">이미지 위 마우스 커서<br><br></div>
+            <img src="sn2-7.png" alt="해외 유사 현상 이미지 7">
+          </div>
+          <div class="image-right">
+            <img src="2-4.png" alt="해외 유사 현상 이미지 8">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        } else {
+          entry.target.classList.remove('animate');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.content-title, .description, .long-description');
+      elements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+</html>
